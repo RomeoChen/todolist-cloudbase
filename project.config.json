@@ -10,7 +10,7 @@
     "minified": true,
     "newFeature": true,
     "coverView": true,
-    "nodeModules": false,
+    "nodeModules": true,
     "autoAudits": false,
     "showShadowRootInWxmlPanel": true,
     "scopeDataCheck": false,
@@ -28,7 +28,6 @@
       "outputPath": ""
     },
     "enableEngineNative": false,
-    "bundle": false,
     "useIsolateContext": true,
     "useCompilerModule": true,
     "userConfirmedUseCompilerModuleSwitch": false,
@@ -39,7 +38,7 @@
   },
   "appid": "wx9568a91016140f21",
   "projectname": "answer-question",
-  "libVersion": "2.16.1",
+  "libVersion": "2.17.0",
   "condition": {
     "search": {
       "list": []

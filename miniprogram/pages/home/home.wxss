@@ -1,0 +1,51 @@
+/* miniprogram/pages/home.wxss */
+
+.add-todo, .todo {
+  display: flex;
+  align-items: center;
+  padding: 0 20rpx;
+}
+
+.tabs {
+  padding: 20rpx;
+  border-bottom: 1rpx solid #ccc;
+}
+.tab {
+  margin-right: 30rpx;
+}
+.active {
+  font-size: 40rpx;
+  font-weight: bold;
+  border-bottom: 5rpx solid #07c160;
+}
+
+.add-todo-input {
+  margin: 20rpx 30rpx;
+  padding: 20rpx;
+  background-color: white;
+  flex: 5;
+}
+
+.scroll {
+  height: calc(100% - 1000rpx)
+}
+
+.add-todo-btn {
+  flex: 1;
+}
+
+.title {
+  font-size: 50rpx;
+  margin: 30rpx 0;
+  border-bottom: 1rpx solid #eeeeee;
+}
+
+.done {
+  text-decoration-line: line-through;
+  color: #ccc;
+}
+
+.del-btn {
+  display: inline;
+  margin-right: 20rpx;
+}

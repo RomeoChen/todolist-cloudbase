@@ -1,0 +1,26 @@
+<!--miniprogram/pages/home.wxml-->
+<view class="add-todo">
+  <input class="add-todo-input" model:value="{{inputText}}" />
+  <button type="primary" plain="true" class="add-todo-btn" bindtap="addTodo">添加</button>
+</view>
+
+<view class="tabs">
+  <text class="tab {{tabIndex === '1' ? activeClass : ''}}" data-tab="1" bindtap="tapTab">今日计划</text>
+  <text class="tab {{tabIndex === '2' ? activeClass : ''}}" data-tab="2" bindtap="tapTab">已完成</text>
+</view>
+
+<scroll-view scroll-y="true" class="scroll">
+  <view wx:if="{{tabIndex === '1'}}" wx:for="{{unfinishedTodos}}" wx:key="id">
+    <view class="todo">
+      <text class="add-todo-input" >{{item.text}}</text>
+      <button type="primary" plain="true" size="mini" class="del-btn" data-todo="{{item}}" bindtap="doneTodo">完成</button>
+      <button type="warn" plain="true" size="mini" class="del-btn" data-todo="{{item}}" bindtap="deleteTodo">删除</button>
+    </view>
+  </view>
+  <view wx:if="{{tabIndex === '2'}}" wx:for="{{finishedTodos}}" data-todo="{{item}}" bindtap="tapTodo(item)" wx:key="id">
+    <view class="todo">
+      <text class="add-todo-input done">{{item.text}}</text>
+      <button type="default" plain="true" size="mini" class="del-btn" data-todo="{{item}}" bindtap="cancelDoneTodo">取消完成</button>
+    </view>
+  </view>
+</scroll-view>
