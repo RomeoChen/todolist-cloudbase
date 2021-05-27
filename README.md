@@ -12,6 +12,7 @@
 
 ## 部署使用指南
 1. 首先需要开通云发开功能
-2. 右键 cloudfunctions/login，选择【创建并部署】
-3. 打开云开发控制台，在数据库中添加集合【todos】
-4. 即可正常运行
+2. 替换 project.config.json 里的 appid
+3. 右键 cloudfunctions/login，选择【创建并部署】
+4. 打开云开发控制台，在数据库中添加集合【todos】
+5. 即可正常运行

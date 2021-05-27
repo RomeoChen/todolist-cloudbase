@@ -37,7 +37,7 @@
     "minifyWXSS": true
   },
   "appid": "wx9568a91016140f21",
-  "projectname": "answer-question",
+  "projectname": "doto-list",
   "libVersion": "2.17.0",
   "condition": {
     "search": {
@@ -53,13 +53,7 @@
       "list": []
     },
     "miniprogram": {
-      "list": [
-        {
-          "id": -1,
-          "name": "db guide",
-          "pathName": "pages/databaseGuide/databaseGuide"
-        }
-      ]
+      "list": []
     }
   }
 }
