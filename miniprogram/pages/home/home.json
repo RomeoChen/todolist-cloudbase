@@ -1,4 +1,5 @@
 {
   "usingComponents": {
+    "create-modal": "./create-modal/create-modal"
   }
 }

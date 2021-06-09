@@ -1,0 +1,27 @@
+<!--miniprogram/pages/todo-detail/todo-detail.wxml-->
+<view style="display: flex; align-items: center; margin: 20rpx">
+  <icon type="circle"></icon>
+  <text style="margin-left: 30rpx; flex: 1; font-weight: lighter">{{date}}</text>
+  <icon type="cancel" bindtap="clickDeleteAll"></icon>
+</view>
+<view style="margin: 10rpx; border-bottom: 1rpx solid #ddd">
+  <input style="padding: 30rpx 10rpx; font-size: 40rpx; font-weight: bold" placeholder="在这里收集你的任务" />
+</view>
+<view class="todo-list">
+  <view class="todo-item" wx:for="{{list}}" wx:key="id"
+    style="display: flex; align-items: center; border-bottom: 1rpx solid #ddd; margin: 10rpx 20rpx; padding: 10rpx">
+    <icon style="padding: 10rpx" type="{{item.done ? 'success' : 'circle'}}" data-item="{{item}}" bindtap="toggleTodoItem" />
+    <input style="flex: 1" value="{{item.text}}" />
+    <icon type="cancel" data-id="{{item.id}}" bindtap="deleteTodoItem" />
+  </view>
+  <view class="todo-item" bindtap="clickAddTodo"
+  style="display: flex; align-items: center; border-bottom: 1rpx solid #ddd; margin: 10rpx 20rpx; padding: 10rpx; color: #aaa">
+    <image style="width: 30rpx; height: 30rpx; padding: 20rpx"  src="../../static/icons/todo-add-icon.png" />
+    添加检查事项
+  </view>
+</view>
+
+
+
+
+<mp-actionSheet bindactiontap="deleteAll" show="{{showActionsheet}}" actions="{{groups}}"></mp-actionSheet>

@@ -15,6 +15,7 @@ Page({
     openid: '',
     tabIndex: '1',
     activeClass: 'active',
+    showCreateModal: false,
   },
 
   /**
@@ -59,19 +60,6 @@ Page({
     })
   },
 
-  async addTodo() {
-    await todoDB.add({
-      data: {
-        text: this.data.inputText,
-        done: false,
-      }
-    })
-    this.setData({
-      inputText: ''
-    })
-    await this.getTodos()
-  },
-
   async updateTodo(id, done) {
     await db.collection('todos').doc(id).update({
       data: {
@@ -89,7 +77,7 @@ Page({
       cancelColor: 'cancelColor',
     })
     if (res.confirm) {
-      const deleteRes = await todoDB.doc(todo._id).remove()
+      await todoDB.doc(todo._id).remove()
     }
     await this.getTodos()
   },
@@ -115,4 +103,34 @@ Page({
 
   },
 
+  /**
+   * 点击添加 todo 事件
+   */
+  clickAddTodo() {
+    this.setData({ showCreateModal: true })
+  },
+
+  /**
+   * 关闭创建todo的modal
+   */
+  closeModal() {
+    this.setData({ showCreateModal: false })
+  },
+
+  /**
+   * 新建 todo
+   */
+  async createTodo(e) {
+    const { title, type } = e.detail;
+    await todoDB.add({
+      data: {
+        title,
+        type,
+        done: false,
+        date: new Date(),
+      }
+    });
+    await this.getTodos();
+    this.setData({ showCreateModal: false })
+  },
 })

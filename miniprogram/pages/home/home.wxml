@@ -1,8 +1,4 @@
 <!--miniprogram/pages/home.wxml-->
-<view class="add-todo">
-  <input class="add-todo-input" model:value="{{inputText}}" />
-  <button type="primary" plain="true" class="add-todo-btn" bindtap="addTodo">添加</button>
-</view>
 
 <view class="tabs">
   <text class="tab {{tabIndex === '1' ? activeClass : ''}}" data-tab="1" bindtap="tapTab">今日计划</text>
@@ -12,15 +8,22 @@
 <scroll-view scroll-y="true" class="scroll">
   <view wx:if="{{tabIndex === '1'}}" wx:for="{{unfinishedTodos}}" wx:key="id">
     <view class="todo">
-      <text class="add-todo-input" >{{item.text}}</text>
+      <text class="add-todo-input" >{{item.title}}</text>
       <button type="primary" plain="true" size="mini" class="del-btn" data-todo="{{item}}" bindtap="doneTodo">完成</button>
       <button type="warn" plain="true" size="mini" class="del-btn" data-todo="{{item}}" bindtap="deleteTodo">删除</button>
     </view>
   </view>
-  <view wx:if="{{tabIndex === '2'}}" wx:for="{{finishedTodos}}" data-todo="{{item}}" bindtap="tapTodo(item)" wx:key="id">
+  <view wx:if="{{tabIndex === '2'}}" wx:for="{{finishedTodos}}" data-todo="{{item}}" wx:key="id">
     <view class="todo">
-      <text class="add-todo-input done">{{item.text}}</text>
+      <text class="add-todo-input done">{{item.title}}</text>
       <button type="default" plain="true" size="mini" class="del-btn" data-todo="{{item}}" bindtap="cancelDoneTodo">取消完成</button>
     </view>
   </view>
 </scroll-view>
+
+<view bindtap="clickAddTodo"
+  style="width: 120rpx; height: 120rpx; box-sizing: border-box; position: fixed; display: flex; justify-content: center; align-items: center; right: 30rpx; bottom: 100rpx; border-radius: 60rpx; background: #fff; box-shadow: 0 5rpx 20rpx 10rpx #ddd; left: 600rpx; top: 1226rpx">
+  <image style="width: 60rpx; height: 60rpx; display: inline-block; box-sizing: border-box"  src="../../static/icons/todo-add-icon.png" />
+</view>
+
+<create-modal isShow="{{showCreateModal}}" bind:close="closeModal" bind:createTodo="createTodo"/>

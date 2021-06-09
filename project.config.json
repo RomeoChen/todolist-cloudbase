@@ -37,8 +37,9 @@
     "minifyWXSS": true
   },
   "appid": "wx9568a91016140f21",
-  "projectname": "doto-list",
+  "projectname": "todo-list",
   "libVersion": "2.17.0",
+  "cloudfunctionTemplateRoot": "cloudfunctionTemplate",
   "condition": {
     "search": {
       "list": []
