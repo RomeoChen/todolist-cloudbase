@@ -9,8 +9,8 @@
 </view>
 <view class="todo-list">
   <view class="todo-item" wx:for="{{list}}" wx:key="id"
-    style="display: flex; align-items: center; border-bottom: 1rpx solid #ddd; margin: 10rpx 20rpx; padding: 10rpx">
-    <icon style="padding: 10rpx" type="{{item.done ? 'success' : 'circle'}}" data-item="{{item}}" bindtap="toggleTodoItem" />
+    style="display: flex; align-items: center; border-bottom: 1rpx solid #ddd; margin: 10rpx 20rpx; padding: 10rpx; {{item.done && 'filter: grayscale()'}}">
+    <icon style="padding: 10rpx; border-radius: 0" type="{{item.done ? 'success' : 'circle'}}" data-item="{{item}}" bindtap="toggleTodoItem" />
     <input style="flex: 1" value="{{item.text}}" />
     <icon type="cancel" data-id="{{item.id}}" bindtap="deleteTodoItem" />
   </view>

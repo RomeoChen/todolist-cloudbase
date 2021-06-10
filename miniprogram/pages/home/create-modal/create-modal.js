@@ -25,6 +25,7 @@ Component({
     closeModal() {
       this.triggerEvent('close')
     },
+
     /**
      * 点击创建
      */
@@ -38,12 +39,14 @@ Component({
         return
       }
       this.triggerEvent('createTodo', { title, type })
+      this.setData({ title: '', type: '' })
     },
+
     /**
      * 切换类型
      */
     changeType(e) {
       this.setData({ type: e.target.dataset.type })
-    }
+    },
   },
 })

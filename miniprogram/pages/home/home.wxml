@@ -1,29 +1,29 @@
 <!--miniprogram/pages/home.wxml-->
 
 <view class="tabs">
-  <text class="tab {{tabIndex === '1' ? activeClass : ''}}" data-tab="1" bindtap="tapTab">今日计划</text>
-  <text class="tab {{tabIndex === '2' ? activeClass : ''}}" data-tab="2" bindtap="tapTab">已完成</text>
+  <text class="tab {{tabIndex === '1' ? 'active' : ''}}" data-tab="1" bindtap="tapTab">今日计划</text>
+  <!-- <text class="tab {{tabIndex === '2' ? 'active' : ''}}" data-tab="2" bindtap="tapTab">已完成</text> -->
 </view>
 
 <scroll-view scroll-y="true" class="scroll">
-  <view wx:if="{{tabIndex === '1'}}" wx:for="{{unfinishedTodos}}" wx:key="id">
+  <view wx:for="{{unfinishedTodos}}" wx:key="id">
     <view class="todo">
-      <text class="add-todo-input" >{{item.title}}</text>
-      <button type="primary" plain="true" size="mini" class="del-btn" data-todo="{{item}}" bindtap="doneTodo">完成</button>
-      <button type="warn" plain="true" size="mini" class="del-btn" data-todo="{{item}}" bindtap="deleteTodo">删除</button>
+      <image class="not-done-icon" src="../../static/icons/todo-not-done-icon.png" bindtap="doneTodo"
+        data-todo="{{item}}" />
+      <text class="add-todo-input">{{item.title}}</text>
     </view>
   </view>
-  <view wx:if="{{tabIndex === '2'}}" wx:for="{{finishedTodos}}" data-todo="{{item}}" wx:key="id">
+  <view class="had-done-tips">已完成</view>
+  <view wx:for="{{finishedTodos}}" data-todo="{{item}}" wx:key="id">
     <view class="todo">
+      <image class="done-icon" src="../../static/icons/todo-done-icon.png" bindtap="cancelDoneTodo" data-todo="{{item}}" />
       <text class="add-todo-input done">{{item.title}}</text>
-      <button type="default" plain="true" size="mini" class="del-btn" data-todo="{{item}}" bindtap="cancelDoneTodo">取消完成</button>
     </view>
   </view>
 </scroll-view>
 
-<view bindtap="clickAddTodo"
-  style="width: 120rpx; height: 120rpx; box-sizing: border-box; position: fixed; display: flex; justify-content: center; align-items: center; right: 30rpx; bottom: 100rpx; border-radius: 60rpx; background: #fff; box-shadow: 0 5rpx 20rpx 10rpx #ddd; left: 600rpx; top: 1226rpx">
-  <image style="width: 60rpx; height: 60rpx; display: inline-block; box-sizing: border-box"  src="../../static/icons/todo-add-icon.png" />
+<view bindtap="clickAddTodo" class="add-icon-wrap">
+  <image class="add-icon" src="../../static/icons/todo-add-icon.png" />
 </view>
 
-<create-modal isShow="{{showCreateModal}}" bind:close="closeModal" bind:createTodo="createTodo"/>
+<create-modal isShow="{{showCreateModal}}" bind:close="closeModal" bind:createTodo="createTodo" />

@@ -27,25 +27,14 @@ Page({
   },
 
   async getTodos() {
-    const unfinishedTodosRes = await todoDB.where({
-      done: false,
-    }).get();
-    const unfinishedTodos = unfinishedTodosRes.data;
-    const finishedTodosRes = await todoDB.where({
-      done: true,
-    }).get();
-    const finishedTodos = finishedTodosRes.data;
-    this.setData({
-      finishedTodos,
-      unfinishedTodos,
-    })
+    const { data: unfinishedTodos } = await todoDB.where({ done: false }).get();
+    const { data: finishedTodos } = await todoDB.where({ done: true }).get();
+    this.setData({ finishedTodos, unfinishedTodos })
   },
 
   tapTab(e) {
     const { tab } = e.currentTarget.dataset
-    this.setData({
-      tabIndex: tab,
-    })
+    this.setData({ tabIndex: tab })
   },
 
   async getOpenid() {
@@ -55,30 +44,18 @@ Page({
       data: {},
     })
     const openid = res.result.openid
-    this.setData({
-      openid,
-    })
+    this.setData({ openid })
   },
 
+  /**
+   * 更新 todo
+   * @param {string} id 
+   * @param {boolean} done 
+   */
   async updateTodo(id, done) {
     await db.collection('todos').doc(id).update({
-      data: {
-        done,
-      },
+      data: { done },
     })
-    await this.getTodos()
-  },
-
-  // 删除todo
-  async deleteTodo(event) {
-    const { todo } = event.currentTarget.dataset
-    const res = await wx.showModal({
-      title: '确认删除这条todo吗？',
-      cancelColor: 'cancelColor',
-    })
-    if (res.confirm) {
-      await todoDB.doc(todo._id).remove()
-    }
     await this.getTodos()
   },
 

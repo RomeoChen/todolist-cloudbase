@@ -1,43 +1,39 @@
-/* miniprogram/pages/home.wxss */
-
-.add-todo, .todo {
-  display: flex;
-  align-items: center;
-  padding: 0 20rpx;
-}
-
+/* tabs */
 .tabs {
   padding: 20rpx;
   border-bottom: 1rpx solid #ccc;
 }
+
 .tab {
   margin-right: 30rpx;
 }
+
 .active {
   font-size: 40rpx;
   font-weight: bold;
   border-bottom: 5rpx solid #07c160;
 }
 
-.add-todo-input {
-  margin: 20rpx 30rpx;
+/* todo 列表 */
+.todo {
+  display: flex;
+  align-items: center;
   padding: 20rpx;
-  background-color: white;
-  flex: 5;
 }
 
-.scroll {
-  height: calc(100% - 1000rpx)
+.not-done-icon,
+.done-icon {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 30rpx;
+  margin-left: 10rpx;
 }
 
-.add-todo-btn {
-  flex: 1;
-}
-
-.title {
-  font-size: 50rpx;
-  margin: 30rpx 0;
-  border-bottom: 1rpx solid #eeeeee;
+.had-done-tips {
+  background: #fce5dd;
+  color: #888;
+  padding-left: 30rpx;
+  font-size: 30rpx;
 }
 
 .done {
@@ -45,7 +41,27 @@
   color: #ccc;
 }
 
-.del-btn {
-  display: inline;
-  margin-right: 20rpx;
+/* 添加新todo */
+.add-icon-wrap {
+  width: 120rpx;
+  height: 120rpx;
+  box-sizing: border-box;
+  position: fixed;
+  right: 0rpx;
+  bottom: 100rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 30rpx;
+  bottom: 100rpx;
+  border-radius: 60rpx;
+  background: #fff;
+  box-shadow: 0 5rpx 20rpx 10rpx #ddd;
+}
+
+.add-icon {
+  width: 60rpx;
+  height: 60rpx;
+  display: inline-block;
+  box-sizing: border-box;
 }
