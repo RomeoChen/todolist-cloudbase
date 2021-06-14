@@ -21,14 +21,6 @@
   padding: 20rpx;
 }
 
-.not-done-icon,
-.done-icon {
-  width: 40rpx;
-  height: 40rpx;
-  margin-right: 30rpx;
-  margin-left: 10rpx;
-}
-
 .had-done-tips {
   background: #fce5dd;
   color: #888;

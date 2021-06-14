@@ -1,27 +1,39 @@
 <!--miniprogram/pages/todo-detail/todo-detail.wxml-->
+
+<!-- 头部 -->
 <view style="display: flex; align-items: center; margin: 20rpx">
-  <icon type="circle"></icon>
+  <image wx:if="{{todo.done}}" class="done-icon" src="../../static/icons/todo-done-icon.png" bindtap="toggleTodoDone" />
+  <image wx:else class="not-done-icon" src="../../static/icons/todo-not-done-icon.png" bindtap="toggleTodoDone" />
   <text style="margin-left: 30rpx; flex: 1; font-weight: lighter">{{date}}</text>
   <icon type="cancel" bindtap="clickDeleteAll"></icon>
 </view>
+
+<!-- title -->
 <view style="margin: 10rpx; border-bottom: 1rpx solid #ddd">
-  <input style="padding: 30rpx 10rpx; font-size: 40rpx; font-weight: bold" placeholder="在这里收集你的任务" />
+  <input value="{{todo.title}}" bindblur="updateTodoTitle"
+    style="padding: 30rpx 10rpx; font-size: 40rpx; font-weight: bold" placeholder="准备做什么？" />
 </view>
-<view class="todo-list">
-  <view class="todo-item" wx:for="{{list}}" wx:key="id"
-    style="display: flex; align-items: center; border-bottom: 1rpx solid #ddd; margin: 10rpx 20rpx; padding: 10rpx; {{item.done && 'filter: grayscale()'}}">
-    <icon style="padding: 10rpx; border-radius: 0" type="{{item.done ? 'success' : 'circle'}}" data-item="{{item}}" bindtap="toggleTodoItem" />
-    <input style="flex: 1" value="{{item.text}}" />
-    <icon type="cancel" data-id="{{item.id}}" bindtap="deleteTodoItem" />
+
+<!-- 列表 -->
+<view wx:if="{{todo.type === 'checklist'}}" class="todo-list">
+  <view class="todo-item" wx:for="{{todo.content}}" wx:key="id"
+    style="display: flex; align-items: center; border-bottom: 1rpx solid #ddd; margin: 10rpx 20rpx; padding: 10rpx;">
+    <image wx:if="{{item.done}}" class="done-icon" src="../../static/icons/todo-done-icon.png" bindtap="cancelDoneTodo" data-todo="{{item}}" />
+    <image wx:else class="not-done-icon" src="../../static/icons/todo-not-done-icon.png" bindtap="doneTodo" data-todo="{{item}}" />
+    <input style="flex: 1; {{item.done && 'color: #ccc'}}" value="{{item.text}}" />
+    <icon type="cancel" data-index="{{index}}" bindtap="clickDeleteCheckItem" />
   </view>
-  <view class="todo-item" bindtap="clickAddTodo"
+  <view class="todo-item" bindtap="clickAddCheckItem"
   style="display: flex; align-items: center; border-bottom: 1rpx solid #ddd; margin: 10rpx 20rpx; padding: 10rpx; color: #aaa">
-    <image style="width: 30rpx; height: 30rpx; padding: 20rpx"  src="../../static/icons/todo-add-icon.png" />
+    <image style="width: 30rpx; height: 30rpx; padding: 15rpx;" src="../../static/icons/Add.svg" />
     添加检查事项
   </view>
 </view>
 
+<!-- 文本内容 -->
+<view wx:else class="content-wrap">
+  <textarea value="{{todo.content}}" placeholder="描述" auto-height="true" bindblur="updateTodoContent"></textarea>
+</view>
 
-
-
+<!-- 底部操作栏  -->
 <mp-actionSheet bindactiontap="deleteAll" show="{{showActionsheet}}" actions="{{groups}}"></mp-actionSheet>

@@ -6,3 +6,11 @@ page {
   flex-direction: column;
   justify-content: flex-start;
 }
+
+.not-done-icon,
+.done-icon {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 30rpx;
+  margin-left: 10rpx;
+}

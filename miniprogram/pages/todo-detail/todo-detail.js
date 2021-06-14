@@ -1,32 +1,19 @@
 // miniprogram/pages/todo-detail/todo-detail.js
+const db = wx.cloud.database()
+const todoDB = db.collection('todos')
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    list: [
-      {
-        text: 123,
-        done: false,
-        id: 1,
-      },
-      {
-        text: 234,
-        done: true,
-        id: 2,
-      },
-      {
-        text: 345,
-        done: false,
-        id: 3,
-      },
-    ],
     showActionsheet: false,
     groups: [
       { text: '删除', type: 'warn' },
     ],
     date: '2021年06月10日',
+    todo: {},
   },
 
   clickDeleteAll() {
@@ -39,14 +26,6 @@ Page({
     console.log('点击删除')
   },
 
-  deleteTodoItem(e) {
-    const { id } = e.target.dataset;
-    const { list } = this.data;
-    const index = list.findIndex(todo => todo.id === id)
-    list.splice(index, 1);
-    this.setData({ list })
-  },
-
   toggleTodoItem(e) {
     const { list } = this.data
     const { item } = e.target.dataset
@@ -56,68 +35,73 @@ Page({
     this.setData({ list })
   },
 
-  clickAddTodo(e) {
-    this.setData({
-      list: [ 
-        ...this.data.list, 
-        { text: '', done: false }
-      ]
-    })
-  },
-
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-
+  onLoad: async function (options) {
+    await this.getTodoDetail(options.id)
   },
 
   /**
-   * 生命周期函数--监听页面初次渲染完成
+   * 获取当前todo详情
    */
-  onReady: function () {
-
+  async getTodoDetail(id) {
+    const { data } = await todoDB.doc(id).get()
+    this.setData({ todo: data })
+    console.log(data)
   },
 
   /**
-   * 生命周期函数--监听页面显示
+   * 完成/取消完成todo
    */
-  onShow: function () {
-
+  async toggleTodoDone(e) {
+    const { todo } = this.data;
+    const done = !todo.done
+    await todoDB.doc(todo._id).update({ data: { done }});
+    await this.getTodoDetail(todo._id)
   },
 
   /**
-   * 生命周期函数--监听页面隐藏
+   * 输入完content后更新
    */
-  onHide: function () {
-
+  async updateTodoContent(e) {
+    const { value } = e.detail;
+    const { _id: todoId } = this.data.todo;
+    await todoDB.doc(todoId).update({ data: { content: value }});
   },
 
   /**
-   * 生命周期函数--监听页面卸载
+   * 输入完title后更新
    */
-  onUnload: function () {
-
+  async updateTodoTitle(e) {
+    const { value } = e.detail;
+    const { _id: todoId } = this.data.todo;
+    await todoDB.doc(todoId).update({ data: { title: value }});
   },
 
   /**
-   * 页面相关事件处理函数--监听用户下拉动作
+   * 添加检查项
    */
-  onPullDownRefresh: function () {
-
+  async clickAddCheckItem() {
+    const { content = [], _id } = this.data.todo
+    const newContent = content.concat({text: '', done: false})
+    this.setData({
+      todo: { ...this.data.todo, content: newContent}
+    })
+    await todoDB.doc(_id).update({ data: { content: newContent }})
   },
 
   /**
-   * 页面上拉触底事件的处理函数
+   * 删除检查项
    */
-  onReachBottom: function () {
-
+  async clickDeleteCheckItem(e) {
+    const { index } = e.target.dataset;
+    console.log(index)
+    const { content = [], _id } = this.data.todo
+    content.splice(index, 1)
+    this.setData({
+      todo: { ...this.data.todo, content }
+    })
+    await todoDB.doc(_id).update({ data: { content }})
   },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
 })
