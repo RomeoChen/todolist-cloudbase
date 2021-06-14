@@ -110,4 +110,15 @@ Page({
     await this.getTodos();
     this.setData({ showCreateModal: false })
   },
+
+  /**
+   * 点击 todo，进入详情页
+   */
+  clickTodo(event) {
+    const { todo } = event.currentTarget.dataset
+    wx.navigateTo({
+      url: `/pages/todo-detail/todo-detail?id=${todo._id}`,
+    })
+  }
+
 })

@@ -10,7 +10,7 @@
     <view class="todo">
       <image class="not-done-icon" src="../../static/icons/todo-not-done-icon.png" bindtap="doneTodo"
         data-todo="{{item}}" />
-      <text class="add-todo-input">{{item.title}}</text>
+      <text class="add-todo-input" data-todo="{{item}}" bindtap="clickTodo">{{item.title}}</text>
     </view>
   </view>
   <view class="had-done-tips">已完成</view>
